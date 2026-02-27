@@ -1,0 +1,39 @@
+program        ::= {command_decl} ;
+
+command_decl   ::= "command" IDENT ":" command_body ;
+
+command_body   ::= target_decl params_decl [timeout_decl] [mode_decl] [comment_decl] ;
+
+target_decl    ::= "target" ":" ( "wsl" | "powershell" ) ;
+params_decl    ::= "params" ":" "[" [param ("," param)*] "]" ;
+param          ::= IDENT ":" param_type "=" param_value ;
+param_type     ::= "string" | "int" ;
+param_value    ::= STRING | NUMBER ;
+timeout_decl   ::= "timeout" ":" NUMBER ;      // milliseconds
+mode_decl      ::= "mode" ":" ( "safe" | "raw" ) ;
+comment_decl   ::= "description" ":" STRING ;
+
+/* Lexical Rules */
+IDENT          ::= [A-Za-z_][A-Za-z0-9_]*
+STRING         ::= '"' ( [^"\\] | '\\' . )* '"'
+NUMBER         ::= [0-9]+
+WSL            ::= "wsl"
+POWERSHELL     ::= "powershell"
+TARGET         ::= "target"
+PARAMS         ::= "params"
+TIMEOUT        ::= "timeout"
+MODE           ::= "mode"
+SAFE           ::= "safe"
+RAW            ::= "raw"
+DESCRIPTION    ::= "description"
+LPAREN         ::= "("
+RPAREN         ::= ")"
+LBRACE         ::= "{"
+RBRACE         ::= "}"
+LBRACKET       ::= "["
+RBRACKET       ::= "]"
+COLON          ::= ":"
+COMMA          ::= ","
+EQUALS         ::= "="
+NEWLINE        ::= [\r\n]+
+COMMENT        ::= "#" [^\r\n]*

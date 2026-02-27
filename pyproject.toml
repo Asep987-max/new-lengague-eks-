@@ -1,0 +1,31 @@
+[build-system]
+requires = ["setuptools>=42", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "executor-dsl"
+version = "0.1.0"
+description = "A DSL for executing shell commands safely on Windows 11"
+authors = [
+    {name = "Jules", email = "jules@example.com"}
+]
+dependencies = [
+    "click>=8.0.0",
+]
+requires-python = ">=3.10"
+
+[project.scripts]
+dsl-exec = "dsl_exec.cli:main"
+
+[project.optional-dependencies]
+test = [
+    "pytest>=7.0.0",
+]
+
+[tool.setuptools.packages.find]
+where = ["src/py"]
+include = ["dsl_exec*"]
+
+# Specify the entry point correctly
+[tool.setuptools]
+package-dir = {"" = "src/py"}
